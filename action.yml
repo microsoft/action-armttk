@@ -81,8 +81,6 @@ runs:
         INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
         INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
-        INPUT_PYLINT_RC: ${{ inputs.pylint_rc }}
-        INPUT_PYLINT_ARGS: ${{ inputs.pylint_args }}
         INPUT_GLOB_PATTERN: ${{ inputs.glob_pattern }}
 
 # Ref: https://haya14busa.github.io/github-action-brandings/
