@@ -23,7 +23,7 @@ echo ./armttk.xml 2>&1 | # Removes ansi codes see https://github.com/reviewdog/e
     -filter-mode="${INPUT_FILTER_MODE}" \
     -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
     -level="${INPUT_LEVEL}" \
-    ${INPUT_REVIEWDOG_FLAGS} || exit_val="$?"
+    "${INPUT_REVIEWDOG_FLAGS}" || exit_val="$?"
 
 echo "[action-armttk] Clean up reviewdog..."
 rm /tmp/reviewdog
