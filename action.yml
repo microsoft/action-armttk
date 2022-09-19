@@ -18,7 +18,7 @@ inputs:
   tool_name:
     description: "Tool name to use for reviewdog reporter."
     required: false
-    default: "pylint"
+    default: "armttk"
   level:
     description: "Report level for reviewdog [info,warning,error]"
     required: false
