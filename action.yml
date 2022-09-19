@@ -64,6 +64,7 @@ runs:
       if: ${{ always() }}
     - run: $GITHUB_ACTION_PATH/entrypoint.sh
       shell: bash
+      if: ${{ always() }}
       env:
         INPUT_WORKDIR: ${{ inputs.workdir }}
         INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
