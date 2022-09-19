@@ -1,5 +1,5 @@
-name: "Run Pylint with reviewdog"
-description: "🐶 Run Pylint with reviewdog on pull requests to improve code review experience."
+name: "Run ARM-TTK with reviewdog"
+description: "🐶 Run ARM-TTK with reviewdog on pull requests to improve code review experience."
 author: "dciborow"
 inputs:
   github_token:
@@ -54,6 +54,22 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Run ARM-TTK
+      shell: pwsh
+      run: |
+        Install-Module -Name Pester -RequiredVersion 4.10.1 -Force
+        Import-Module -Name Pester -RequiredVersion 4.10.1 -Force
+        Invoke-WebRequest -Uri aka.ms/arm-ttk-latest -OutFile arm-template-toolkit.zip
+        Expand-Archive -LiteralPath arm-template-toolkit.zip -DestinationPath arm-ttk
+        Import-Module ./arm-ttk/arm-ttk/arm-ttk.psd1
+        echo "Test-AzTemplate -TemplatePath ${{ inputs.templatesFolderPath }} -Pester -Skip Secure-Params-In-Nested-Deployments" | Out-File -FilePath ./armttk.ps1
+        Invoke-Pester -Script ./armttk.ps1 -EnableExit -OutputFormat NUnitXml -OutputFile ./armttk.xml
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ARMTTKResults
+        path: ./armttk.xml
+      if: ${{ always() }}
     - run: $GITHUB_ACTION_PATH/entrypoint.sh
       shell: bash
       env:
