@@ -75,7 +75,7 @@ jobs:
           # Change reporter level if you need.
           # GitHub Status Check won't become failure with warning.
           level: warning
-          glob_pattern: "**/*.py"
+          glob_pattern: "**/*.json"
 ```
 
 ## Development
