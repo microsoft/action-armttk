@@ -13,13 +13,6 @@ export REVIEWDOG_VERSION=v0.14.1
 echo "[action-armttk] Installing reviewdog..."
 wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /tmp "${REVIEWDOG_VERSION}"
 
-if [[ "$INPUT_PYLINT_RC" == "" ]]; then
-  # Do not supply the rcfile option if it is not provided
-  rcfile_option=""
-else
-  rcfile_option="--rcfile=\"${INPUT_PYLINT_RC}\""
-fi
-
 echo "[action-armttk] Checking armttk output with reviewdog..."
 exit_val="0"
 
