@@ -14,19 +14,11 @@ inputs:
     description: "Glob pattern of the files to lint"
     required: false
     default: "."
-  pylint_rc:
-    description: "Path to the .pylintrc configuration file. pylint automatically searches for it if not provided."
-    required: false
-    default: ""
-  pylint_args:
-    description: "Args provided to pylint."
-    required: false
-    default: ""
   ### Flags for reviewdog ###
   tool_name:
     description: "Tool name to use for reviewdog reporter."
     required: false
-    default: "pylint"
+    default: "armttk"
   level:
     description: "Report level for reviewdog [info,warning,error]"
     required: false
