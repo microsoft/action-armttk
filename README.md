@@ -1,13 +1,13 @@
-# action-pylint
+# action-armttk
 
-[![Test](https://github.com/dciborow/action-pylint/workflows/Test/badge.svg)](https://github.com/dciborow/action-pylint/actions?query=workflow%3ATest)
-[![reviewdog](https://github.com/dciborow/action-pylint/workflows/reviewdog/badge.svg)](https://github.com/dciborow/action-pylint/actions?query=workflow%3Areviewdog)
-[![depup](https://github.com/dciborow/action-pylint/workflows/depup/badge.svg)](https://github.com/dciborow/action-pylint/actions?query=workflow%3Adepup)
-[![release](https://github.com/dciborow/action-pylint/workflows/release/badge.svg)](https://github.com/dciborow/action-pylint/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/dciborow/action-pylint?logo=github&sort=semver)](https://github.com/dciborow/action-pylint/releases)
+[![Test](https://github.com/microsoft/action-armttk/workflows/Test/badge.svg)](https://github.com/microsoft/action-armttk/actions?query=workflow%3ATest)
+[![reviewdog](https://github.com/microsoft/action-armttk/workflows/reviewdog/badge.svg)](https://github.com/microsoft/action-armttk/actions?query=workflow%3Areviewdog)
+[![depup](https://github.com/microsoft/action-armttk/workflows/depup/badge.svg)](https://github.com/microsoft/action-pylint/actions?query=workflow%3Adepup)
+[![release](https://github.com/microsoft/action-armttk/workflows/release/badge.svg)](https://github.com/microsoft/action-armttk/actions?query=workflow%3Arelease)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/microsoft/action-armttk?logo=github&sort=semver)](https://github.com/microsoft/action-armttk/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
-This repo contains a action to run [pylint](https://pypi.org/project/pylint).
+This repo contains a action to run [armttk](https://github.com/azure/armttk).
 
 ## Input
 
@@ -25,19 +25,11 @@ inputs:
     description: "Glob pattern of the files to lint"
     required: false
     default: "."
-  pylint_rc:
-    description: "Path to the .pylintrc configuration file. pylint automatically searches for it if not provided."
-    required: false
-    default: ""
-  pylint_args:
-    description: "Args provided to pylint."
-    required: false
-    default: ""
   ### Flags for reviewdog ###
   tool_name:
     description: "Tool name to use for reviewdog reporter."
     required: false
-    default: "pylint"
+    default: "armttk"
   level:
     description: "Report level for reviewdog [info,warning,error]"
     required: false
@@ -70,12 +62,12 @@ inputs:
 name: reviewdog
 on: [pull_request]
 jobs:
-  pylint:
-    name: runner / pylint
+  armttk:
+    name: runner / armttk
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: dciborow/action-pylint@v1
+      - uses: microsoft/action-armttk@v1
         with:
           github_token: ${{ secrets.github_token }}
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
