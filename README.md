@@ -54,6 +54,8 @@ inputs:
     description: "Additional reviewdog flags"
     required: false
     default: ""
+  armttkVersion:
+    description: latest or marketplace version of ARM-TTK 
 ```
 
 ## Usage
