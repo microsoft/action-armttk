@@ -10,7 +10,7 @@
 This repo contains a action to run [armttk](https://github.com/azure/armttk).
 
 ## Quick Start
-Use this redefined workflow to quickly get started using this GitHub Action.
+Use this predefined workflow to quickly get started using this GitHub Action.
 
 ```yaml
 name: On pull request
