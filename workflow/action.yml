@@ -1,0 +1,47 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+name: ARM-TTK
+
+on:
+  workflow_call:
+    inputs:
+      bicepFile:
+        description: 'Name of Bicep File to build'
+        default: 'mainTemplate.bicep'
+        required: false
+        type: string
+      workingPath:
+        description: 'Path to input Bicep file'
+        default: '.'
+        required: false
+        type: string
+      armttkVersion:
+        type: choice
+        description: Version of ARM-TTK to use
+        default: 'aka.ms/arm-ttk-latest' 
+        options:
+        - aka.ms/arm-ttk-latest
+        - aka.ms/arm-ttk-marketplace
+
+jobs:
+  ARMTTK:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - run: az bicep build --file "$bicepFilePath" --outfile "$outputFilePath" > bicep.txt
+        shell: bash
+        env:
+          bicepFilePath: "${{ inputs.workingPath }}/${{ inputs.bicepFile }}"
+          outputFilePath: "${{ inputs.workingPath }}/mainTemplate.json"
+      - name: Publish Bicep Compile Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: BicepResults
+          path: ./bicep.txt
+        if: always()
+      - name: Run ARM-TTK
+        uses: microsoft/action-armttk@0.0.2
+        with:
+          workdir: ${{ inputs.workingPath }}
+          armttkVersion: aka.ms/arm-ttk-marketplace
