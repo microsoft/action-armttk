@@ -9,6 +9,25 @@
 
 This repo contains a action to run [armttk](https://github.com/azure/armttk).
 
+## Quick Start
+Use this redefined workflow to quickly get started using this GitHub Action.
+
+```yaml
+name: On pull request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-module-files-with-armttk:
+    uses: microsoft/action-armttk/.github/workflows/arm-ttk@0.0.5
+    with:
+      bicepFile: main.bicep
+      workingPath: .
+```
+
 ## Input
 
 ```yaml
