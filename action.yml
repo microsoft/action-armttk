@@ -46,10 +46,11 @@ inputs:
   armttkVersion:
     type: choice
     description: Version of ARM-TTK to use
-    default: 'aka.ms/arm-ttk-latest' 
+    default: 'aka.ms/arm-ttk-latest'
     options:
+    - https://github.com/Azure/arm-ttk/releases/latest/download/arm-ttk.zip
     - aka.ms/arm-ttk-latest
-    - aka.ms/arm-ttk-marketplace    
+    - aka.ms/arm-ttk-marketplace
 runs:
   using: "composite"
   steps:
@@ -58,8 +59,13 @@ runs:
       run: |
         Install-Module -Name Pester -RequiredVersion 4.10.1 -Force
         Import-Module -Name Pester -RequiredVersion 4.10.1 -Force
-        Invoke-WebRequest -Uri ${{ inputs.armttkVersion }} -OutFile arm-template-toolkit.zip
-        Expand-Archive -LiteralPath arm-template-toolkit.zip -DestinationPath arm-ttk
+        Invoke-WebRequest -Uri "${{ inputs.armttkVersion }}" -OutFile arm-template-toolkit.zip
+        $destinationPath="."
+        if ( "${{ inputs.armttkVersion }}" -match "aka.ms" ) {
+        # github release already includes a parent arm-ttk directory
+          $destinationPath="arm-ttk"
+        }
+        Expand-Archive -LiteralPath arm-template-toolkit.zip -DestinationPath $destinationPath
         Import-Module ./arm-ttk/arm-ttk/arm-ttk.psd1
         echo "Test-AzTemplate -TemplatePath ${{ inputs.workdir }} -Pester -Skip Secure-Params-In-Nested-Deployments" | Out-File -FilePath ./armttk.ps1
         Invoke-Pester -Script ./armttk.ps1 -EnableExit -OutputFormat NUnitXml -OutputFile ./armttk.xml
