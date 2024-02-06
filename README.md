@@ -87,7 +87,7 @@ jobs:
     name: runner / armttk
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: microsoft/action-armttk@v1
         with:
           github_token: ${{ secrets.github_token }}
