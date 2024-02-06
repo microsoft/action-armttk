@@ -50,6 +50,10 @@ inputs:
     options:
     - aka.ms/arm-ttk-latest
     - aka.ms/arm-ttk-marketplace    
+  armttkResultsRetention:
+    description: "Number of days to retain ARM-TTK results"
+    required: false
+    default: 30
 runs:
   using: "composite"
   steps:
@@ -68,6 +72,7 @@ runs:
       with:
         name: ARMTTKResults
         path: ./armttk.xml
+        retention-days: ${{ inputs.armttkResultsRetention }}
       if: ${{ always() }}
     - run: $GITHUB_ACTION_PATH/entrypoint.sh
       shell: bash
